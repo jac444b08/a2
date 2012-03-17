@@ -314,23 +314,19 @@ private void initComponents() {
   progressBar = new JProgressBar();
   lblProgressStatus = new JLabel();
   country = new JComboBox();
+  label7 = new JLabel();
   city=new JComboBox();
+  label8 = new JLabel();
+  
   //======== this ========
   setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   setTitle("Google Static Maps");
   setIconImage(null);
   Container contentPane = getContentPane();
   contentPane.setLayout(new BorderLayout());
- /*//===========city========
-   String[] countryList={"USA","Canada"};
-   country=new JComboBox(countryList);
-   country.addItemListener(new ItemListener(){
-	public void itemStateChanged(ItemEvent e) {
-		
-   }
-	
-		
-	}});*/
+ 
+  
+
   //======== dialogPane ========
   {
   	dialogPane.setBorder(new EmptyBorder(12, 12, 12, 12));
@@ -353,8 +349,8 @@ private void initComponents() {
   				new TitledBorder("Configure the inputs to Google Static Maps"),
   				Borders.DLU2_BORDER));
   			panel1.setLayout(new TableLayout(new double[][] {
-  				{0.17, 0.17, 0.17, 0.17, 0.05, TableLayout.FILL},
-  				{TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));
+  				{0.17, 0.17, 0.17, 0.17, 0.05,0.20, TableLayout.FILL},
+  				{TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED,TableLayout.PREFERRED}}));
   			((TableLayout)panel1.getLayout()).setHGap(5);
   			((TableLayout)panel1.getLayout()).setVGap(5);
 
@@ -400,6 +396,7 @@ private void initComponents() {
   			label5.setText("Longitude");
   			label5.setHorizontalAlignment(SwingConstants.RIGHT);
   			panel1.add(label5, new TableLayoutConstraints(2, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  		    
 
   			//---- ttfLon ----
   			ttfLon.setText("-77.3489");
@@ -432,7 +429,7 @@ private void initComponents() {
   			panel1.add(label6, new TableLayoutConstraints(2, 2, 2, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
   			//---- ttfZoom ----
-  			ttfZoom.setText("14");
+  			ttfZoom.setText("5");
   			panel1.add(ttfZoom, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		}
   		contentPanel.add(panel1, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
@@ -449,6 +446,109 @@ private void initComponents() {
   		}
   		contentPanel.add(scrollPane1, new TableLayoutConstraints(0, 1, 0, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
+  	//===========country========================
+  	  
+ 	   String[] countryList={"Select","America","Canada"};
+       country=new JComboBox(countryList);
+ 	    
+ 	     country.addItemListener(new ItemListener(){
+ 		  public void itemStateChanged(ItemEvent e) {
+ 			
+            String citya[]={"Select","New York","Chicago","Washington"};
+  			String cityb[]={"Select","Toronto","Ottawa","Vancouver"};
+         		if(e.getSource()==country){
+ 				if(country.getSelectedItem().equals("Select")){
+ 					city.setEnabled(false);	}
+ 				 if(country.getSelectedItem().equals("America")){
+ 					city.setEnabled(true);
+ 					city.removeAllItems();
+ 					for(int i=0;i<citya.length;i++){
+ 						city.addItem(citya[i]);
+ 						}
+ 						}
+ 				 else if(country.getSelectedItem().equals("Canada")){
+ 					city.setEnabled(true);
+ 					city.removeAllItems();
+ 					for(int i=0;i<cityb.length;i++)
+ 					{
+ 						city.addItem(cityb[i]);
+ 			         }
+ 					 }
+ 				     }
+ 			
+ 		 }});
+ 	    
+ 	   panel1.add(country, new TableLayoutConstraints(1,3,1,3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+ 	   
+ 	   
+ 	 
+ 	// ================city==================
+ 	  String[] cityList = new String[6];
+	  cityList[0]="New York";
+	  cityList[1]="Chicago";
+	  cityList[2]="Washington";
+	  cityList[3]="Toronto";
+	  cityList[4]="Ottawa";
+	  cityList[5]="Vancouver"; 
+ 	 city=new JComboBox(cityList); 
+ 	 city.insertItemAt("Select", 0);
+ 	 city.setSelectedIndex(0);
+
+
+ 	 city.addItemListener(new ItemListener(){
+	  public void itemStateChanged(ItemEvent e){
+		  if(e.getSource()==city){
+					
+		  int select;
+		  select=city.getSelectedIndex();
+		  if(country.getSelectedItem().equals("Canada")&& city.getSelectedIndex()==1)
+		    {
+		    	select = 4;	
+		    }
+		  if(country.getSelectedItem().equals("Canada")&& city.getSelectedIndex()==2)
+		    {
+		    	select = 5;	
+		    }
+		  if(country.getSelectedItem().equals("Canada")&& city.getSelectedIndex()==3)
+		    {
+		    	select = 6;	
+		    }
+		  if(select==1){
+			 ttfLat.setText("40.43");
+            ttfLon.setText("-74.00");
+		  }
+		  else if(select==2){
+			 ttfLat.setText("41.53");
+            ttfLon.setText("-87.38");
+		  }
+		  else if(select==3){
+			 ttfLat.setText("38.91");
+            ttfLon.setText("-77.013"); 
+		  }
+		  else if(select==4){
+				 ttfLat.setText("43.40");
+	            ttfLon.setText("-79.25"); 
+			  }
+		  else if(select==5){
+				 ttfLat.setText("45.25");
+	            ttfLon.setText("-76.43"); 
+			  }
+		  else if(select==6){
+				 ttfLat.setText("49.13");
+	            ttfLon.setText("-123.06"); 
+			  }
+	  }
+ }});
+ 	 panel1.add(city, new TableLayoutConstraints(3,3,3,3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+ 
+ 	    //---- label7 ----
+		label7.setText("Country");
+		label7.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel1.add(label7, new TableLayoutConstraints(0,3 ,0, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+	     //---- label8 ----
+			label8.setText("City");
+			label8.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel1.add(label8, new TableLayoutConstraints(2,3 ,2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		//======== panel2 ========
   		{
   			panel2.setOpaque(false);
@@ -537,6 +637,10 @@ private JCheckBox checkboxSendStatus;
 private JTextField ttfProgressMsg;
 private JProgressBar progressBar;
 private JLabel lblProgressStatus;
-private JComboBox country,city;
+private JComboBox country;
+private JComboBox city;
+private JLabel label7;
+private JLabel label8;
+
 // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
