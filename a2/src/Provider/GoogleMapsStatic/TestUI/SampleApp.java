@@ -446,7 +446,10 @@ private void initComponents() {
   		}
   		contentPanel.add(scrollPane1, new TableLayoutConstraints(0, 1, 0, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
-  	//===========country========================
+    /*===================country============================
+  	 *Get maps by select default countries
+  	 *The country button reference site  http://www.roseindia.net/tutorial/java/swing/dynamicComboBox.html
+  	 */
   	  
  	   String[] countryList={"Select","America","Canada"};
        country=new JComboBox(countryList);
@@ -482,7 +485,11 @@ private void initComponents() {
  	   
  	   
  	 
- 	// ================city==================
+ 	/*================city==================
+ 	 * Get maps by select default cities
+ 	 * The city button reference site http://java.comsci.us/examples/swing/JComboBox.html
+ 	 */
+ 	 
  	  String[] cityList = new String[6];
 	  cityList[0]="New York";
 	  cityList[1]="Chicago";
